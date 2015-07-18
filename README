@@ -1,0 +1,66 @@
+#注意:	首次运行MyHttpd时, 需要首先执行make命令编译可执行文件MyHttpd
+#		执行脚本start.sh  (命令 sh   start.sh) 可启动MyHttpd
+#		执行脚本stop.sh   (命令 sh    stop.sh) 可停止MyHttpd
+#		执行脚本restart.sh(命令 sh restart.sh) 可重启MyHttpd, 重新加载配置文件config.ini
+#		执行脚本status.sh (命令 sh  status.sh) 可查询MyHttpd运行状态
+#		如果以上4个脚本处于不可运行状态, 可执行命令(chmod u+x start.sh stop.sh status.sh restart.sh)赋予这4个文件可执行权限
+#如果读者在使用MyHttpd过程中发现其他问题, 请发送邮件到 zhujifang666@163.com, 或者致电 15764226403 作者一定会尽快给予答复, 谢谢大家的支持
+
+#文件列表
+1.脚本文件
+    start.sh    # Server 启动脚本
+    stop.sh     # Server 终止脚本
+    restart.sh  # Server 重启脚本
+	status.sh	# Server 检测脚本
+
+    config.ini  # Server配置脚本{端口号, root-path, threads}
+
+2.编译文件
+    Makefile    #用于编译整个工程
+
+3.Server端源代码
+    server.cpp
+    commen.h
+    commen.cpp
+
+    #线程池封装class
+    threadpool.h
+    threadpool.cpp
+
+    #条件变量封装class[用于实现线程池]
+    condition.h
+    condition.cpp
+
+    #TCPServer与TCPCient类封装
+    Socket.h
+    Socket.cpp
+
+    #SocketException类封装
+    SocketException.h
+
+4.www文件夹(存放于与MyHttpd相同的目录下)
+    www
+        ├── errpage.html
+        ├── image
+        │   ├── err.jpg
+        │   ├── fengjing.jpg
+        │   └── shenghuo.jpeg
+        └── index.html
+
+5.测试Client端代码
+    testClient.cpp
+
+6.README文件
+
+注意:
+  1:我们Server的错误信息都写入的系统的日志文件, 但是不同系统的错误日志文件保存位置有所不同
+    Ubuntu系统log位置: /var/log/syslog
+    CentOS系统log位置: /var/log/messages
+
+  2:Makefile文件内容
+    Ubuntu系统连接pthread库: -pthread
+    CentOS系统连接pthread库: -lpthread
+
+  3:对于四个脚本文件(start.sh/stop.sh/restart.sh/status.sh)中使用的系统命令如grep, ps
+    等, 由于Ubuntu/CentOS系统保存该命令的位置有所不同, 因此在脚本中并未使用绝对路径, 请读者注
+    意不要在项目文件夹下命名与系统命令如grep, ps名称相同的可执行文件;
